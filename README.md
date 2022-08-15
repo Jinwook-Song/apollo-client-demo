@@ -1,46 +1,29 @@
-# Getting Started with Create React App
+# Apollo Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+| 프로젝트 기간 | 22.08.15 ~ 22.08.15                          |
+| ------------- | -------------------------------------------- |
+| 프로젝트 목적 | How to use apollo client with react, graphql |
+| Github        |                                              |
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+Introduction to Apollo Client
 
-### `npm start`
+Apollo Client는 GraphQL을 사용하여 로컬 및 원격 데이터를 모두 관리할 수 있는 JavaScript용 상태 관리 라이브러리입니다. UI를 자동으로 업데이트하면서 애플리케이션 데이터를 가져오고, 캐시하고, 수정하는 데 사용합니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://www.apollographql.com/docs/react
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+특징
 
-### `npm test`
+1. 데이터 fetching
+2. 우수한 개발 경험 (TypeScript, devtools 등 유용한 도구 사용 가능)
+3. 모던 React용으로 설계 (훅과 같은 최신 React 기능을 활용 가능)
+4. 범용 호환 (모든 빌드 셋업 및 GraphQL API를 사용)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npx create-react-app apollo-client-demo --template=typescript`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm i @apollo/client graphql react-router-dom`
