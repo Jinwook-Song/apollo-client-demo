@@ -1,5 +1,5 @@
 function Moive() {
-  return <div></div>;
+  return <div>Moive</div>;
 }
 
 export default Moive;
