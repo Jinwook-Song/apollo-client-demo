@@ -14,19 +14,36 @@ const MOVIE_DETAIL = gql`
       title
       medium_cover_image
       rating
+      isLiked @client # Local only field
     }
   }
 `;
 
 function Moive() {
   const { id: movieId } = useParams();
-  const { data, loading } = useQuery<IMovieResponse>(MOVIE_DETAIL, {
+  const {
+    data,
+    loading,
+    client: { cache },
+  } = useQuery<IMovieResponse>(MOVIE_DETAIL, {
     variables: {
       movieId,
     },
   });
 
-  console.log(data);
+  const onClick = () => {
+    cache.writeFragment({
+      id: `Movie:${movieId}`,
+      fragment: gql`
+        fragment MoiveFragment on Movie {
+          isLiked
+        }
+      `,
+      data: {
+        isLiked: !data?.movie.isLiked,
+      },
+    });
+  };
 
   if (loading) {
     return <h2>Fetching Moive</h2>;
@@ -37,6 +54,9 @@ function Moive() {
       <Column>
         <Title>{loading ? 'Loading...' : `${data?.movie?.title}`}</Title>
         <Subtitle>⭐️ {data?.movie?.rating}</Subtitle>
+        <button onClick={onClick}>
+          {data?.movie.isLiked ? 'Unlike' : 'Like'}
+        </button>
       </Column>
       <Image bg={data?.movie?.medium_cover_image} />
     </Container>

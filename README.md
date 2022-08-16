@@ -175,3 +175,84 @@ export default function Movies() {
   );
 }
 ```
+
+Query with param
+
+```tsx
+import { gql, useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
+import { IMovieResponse } from '../interface/movie';
+
+const MOVIE_DETAIL = gql`
+  query getMovie($movieId: String!) {
+    movie(id: $movieId) {
+      id
+      title
+    }
+  }
+`;
+
+function Moive() {
+  const { id: movieId } = useParams();
+  const { data, loading } = useQuery<IMovieResponse>(MOVIE_DETAIL, {
+    variables: {
+      movieId,
+    },
+  });
+
+  console.log(data);
+
+  if (loading) {
+    return <h2>Fetching Moive</h2>;
+  }
+  return <div>{data?.movie.title}</div>;
+}
+
+export default Moive;
+```
+
+Local only field
+
+```tsx
+const MOVIE_DETAIL = gql`
+  query getMovie($movieId: String!) {
+    movie(id: $movieId) {
+      id
+      title
+      medium_cover_image
+      rating
+      isLiked @client # Local only field
+    }
+  }
+`;
+```
+
+Fragment
+
+readFragment를 사용하여 Apollo 클라이언트 캐시에서 "random-access" 데이터를 읽는 것 외에도 writeFragment 메서드를 사용하여 캐시에 데이터를 쓸 수 있습니다.
+
+writeFragment를 사용하여 캐시된 데이터에 대한 변경 사항은 GraphQL 서버에 푸시되지 않습니다. 환경을 다시 로드하면 이러한 변경 사항이 사라집니다.
+
+```tsx
+const {
+  data,
+  loading,
+  client: { cache },
+} = useQuery<IMovieResponse>(MOVIE_DETAIL, {
+  variables: {
+    movieId,
+  },
+});
+
+cache.writeFragment({
+  id: `Movie:${movieId}`,
+  fragment: gql`
+    fragment MoiveFragment on Movie {
+      isLiked
+    }
+  `,
+  data: {
+    isLiked: !data?.movie.isLiked,
+  },
+});
+```
