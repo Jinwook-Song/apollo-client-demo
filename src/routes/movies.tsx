@@ -1,30 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
-
-type Movie = {
-  allMovies: {
-    id: number;
-    url: string;
-    imdb_code: string;
-    title: string;
-    title_english: string;
-    title_long: string;
-    slug: string;
-    year: number;
-    rating: number;
-    runtime: number;
-    genres: string[];
-    summary?: string;
-    description_full: string;
-    synopsis: string;
-    yt_trailer_code: string;
-    language: string;
-    background_image: string;
-    background_image_original: string;
-    small_cover_image: string;
-    medium_cover_image: string;
-    large_cover_image: string;
-  }[];
-};
+import { Link } from 'react-router-dom';
+import { IMovieResponse } from '../interface/movie';
 
 const ALL_MOVIES = gql`
   query getMovies {
@@ -36,7 +12,7 @@ const ALL_MOVIES = gql`
 `;
 
 export default function Movies() {
-  const { data, loading, error } = useQuery<Movie>(ALL_MOVIES);
+  const { data, loading, error } = useQuery<IMovieResponse>(ALL_MOVIES);
   if (loading) {
     return <h1>Loading...</h1>;
   }
@@ -47,7 +23,9 @@ export default function Movies() {
     <ul>
       <h1>Movies</h1>
       {data?.allMovies.map((movie) => (
-        <li key={movie.id}>{movie.title}</li>
+        <li key={movie.id}>
+          <Link to={`movies/${movie.id}`}>{movie.title}</Link>
+        </li>
       ))}
     </ul>
   );
