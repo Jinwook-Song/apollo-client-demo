@@ -20,7 +20,7 @@ const ALL_MOVIES = gql`
 export default function Movies() {
   const { data, loading, error } = useQuery<IMovieResponse>(ALL_MOVIES);
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <Loading>Loading...</Loading>;
   }
   if (error) {
     return <h1>Could not fetch :(</h1>;
@@ -44,6 +44,16 @@ export default function Movies() {
   );
 }
 
+export const Loading = styled.div`
+  font-size: 18px;
+  opacity: 0.5;
+  font-weight: 500;
+  margin-top: 10px;
+  text-align: center;
+  height: 100vh;
+  line-height: 100vh;
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,13 +76,6 @@ const Title = styled.h1`
   font-size: 60px;
   font-weight: 600;
   margin-bottom: 20px;
-`;
-
-const Loading = styled.div`
-  font-size: 18px;
-  opacity: 0.5;
-  font-weight: 500;
-  margin-top: 10px;
 `;
 
 const MoviesGrid = styled.div`

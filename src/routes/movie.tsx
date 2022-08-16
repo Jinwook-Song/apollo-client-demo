@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IMovieResponse } from '../interface/movie';
+import { Loading } from './movies';
 
 interface ImageProps {
   bg?: string;
@@ -46,7 +47,7 @@ function Moive() {
   };
 
   if (loading) {
-    return <h2>Fetching Moive</h2>;
+    return <Loading>Fetching Moive</Loading>;
   }
 
   return (
